@@ -1,3 +1,5 @@
+
+from datetime import datetime
 from app import app
 from flask import request
 from model.user_model import user_model
@@ -21,3 +23,15 @@ def patch(id):
 @app.route("/user/signup/limit/<limit>/page/<page>",methods=["GET"])
 def pagination(limit,page):
     return obj.user_pagination_model(limit,page)
+
+
+@app.route("/user/<uid>/upload/avatar", methods=["PUT"])
+def upload_avatar(uid):
+    file = request.files['avatar']
+    new_filename =  str(datetime.now().timestamp()).replace(".", "") # Generating unique name for the file
+    split_filename = file.filename.split(".") # Spliting ORIGINAL filename to seperate extenstion
+    ext_pos = len(split_filename)-1 # Canlculating last index of the list got by splitting the filname
+    ext = split_filename[ext_pos] # Using last index to get the file extension
+    db_path = f"uploads/{new_filename}.{ext}"
+    file.save(f"uploads/{new_filename}.{ext}")
+    return obj.upload_avatar_model(uid, db_path)

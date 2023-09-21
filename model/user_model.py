@@ -68,3 +68,11 @@ class user_model():
             return make_response({"page":pno, "limit":limit, "payload":result})
         else:
             return make_response({"message":"No Data Found"}, 204)
+
+
+    def upload_avatar_model(self, uid, db_path):
+        self.cur.execute(f"UPDATE users SET avatar='{db_path}' WHERE id={uid}")
+        if self.cur.rowcount>0:
+            return make_response({"message":"FILE_UPLOADED_SUCCESSFULLY"},201)
+        else:
+            return make_response({"message":"NOTHING_TO_UPDATE"},204)
