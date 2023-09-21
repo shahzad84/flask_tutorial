@@ -11,12 +11,15 @@ class user_model():
         except:
             print("some error")
 
-            
+
     def user_signup_model(self):
         self.cur.execute("SELECT* FROM users")
         result=self.cur.fetchall()
         if len(result)>0:
-            return make_response({"payload":result},200)
+            res=make_response({"payload":result},200)
+            res.headers["Access-Control-Allow-Origin"]="*"
+
+            return res
         else:
             return make_response({"message":"No Data Found"},204)
         
