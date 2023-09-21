@@ -18,3 +18,6 @@ def delete(id):
 @app.route("/user/patch/<id>",methods=["PATCH"])
 def patch(id):
     return obj.user_patch_model(request.form,id)
+@app.route("/user/signup/limit/<limit>/page/<page>",methods=["GET"])
+def pagination(limit,page):
+    return obj.user_pagination_model(limit,page)
