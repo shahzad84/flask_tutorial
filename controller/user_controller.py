@@ -1,4 +1,4 @@
-
+from flask import send_file
 from datetime import datetime
 from app import app
 from flask import request
@@ -35,3 +35,8 @@ def upload_avatar(uid):
     db_path = f"uploads/{new_filename}.{ext}"
     file.save(f"uploads/{new_filename}.{ext}")
     return obj.upload_avatar_model(uid, db_path)
+
+
+@app.route("/uploads/<filename>")
+def user_getavatar(filename):
+    return send_file(f"uploads/{filename}")
