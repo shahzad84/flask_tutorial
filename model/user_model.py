@@ -13,22 +13,22 @@ class user_model():
         self.cur.execute("SELECT* FROM users")
         result=self.cur.fetchall()
         if len(result)>0:
-            return json.dumps(result)
+            return {"payload":result}
         else:
-            return "No Data Found"
+            return {"message":"No Data Found"}
     def user_addone_model(self,data):
         self.cur.execute(f"INSERT INTO users(name, email, phone, role, password) VALUES('{data['name']}', '{data['email']}', '{data['phone']}', '{data['role']}', '{data['password']}')")
-        return "user created sucessfully"
+        return {"message":"user created sucessfully"}
     def user_update_model(self,data):
          self.cur.execute(f"UPDATE users SET name='{data['name']}', email='{data['email']}', phone='{data['phone']}' WHERE id={data     ['id']}")
          if self.cur.rowcount>0:
-            return "updated sucessfully"
+            return {"message":"updated sucessfully"}
          else:
-            return "nothing to update"
+            return{ "message":"nothing to update"}
     def user_delete_model(self,id):
          self.cur.execute(f"DELETE FROM users WHERE id={id}")
          if self.cur.rowcount>0:
-            return "deleted sucessfully"
+            return {"message":"deleted sucessfully"}
          else:
-            return "nothing to delete"
+            return {"message":"nothing to delete"}
 
