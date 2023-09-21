@@ -19,3 +19,10 @@ class user_model():
     def user_addone_model(self,data):
         self.cur.execute(f"INSERT INTO users(name, email, phone, role, password) VALUES('{data['name']}', '{data['email']}', '{data['phone']}', '{data['role']}', '{data['password']}')")
         return "user created sucessfully"
+    def user_update_model(self,data):
+         self.cur.execute(f"UPDATE users SET name='{data['name']}', email='{data['email']}', phone='{data['phone']}' WHERE id={data     ['id']}")
+         if self.cur.rowcount>0:
+            return "updated sucessfully"
+         else:
+            return "nothing to update"
+
